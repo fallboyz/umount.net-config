@@ -1,0 +1,17 @@
+./configure \
+--prefix=/data/apps/src/nginx-1.16.1 \
+--sbin-path=/data/apps/src/nginx-1.16.1/sbin/nginx \
+--pid-path=/data/apps/src/nginx-1.16.1 \
+--conf-path=/data/apps/src/nginx-1.16.1/conf/nginx.conf \
+--user=webuser \
+--group=webuser \
+--with-http_stub_status_module \
+--with-http_ssl_module \
+--with-http_v2_module \
+--with-http_realip_module \
+--with-openssl=/data/apps/dn/openssl-1.1.1c \
+--http-client-body-temp-path=/data/apps/src/nginx-1.16.1/tmp/_client_body \
+--http-proxy-temp-path=/data/apps/src/nginx-1.16.1/tmp/_proxy \
+--http-fastcgi-temp-path=/data/apps/src/nginx-1.16.1/tmp/_fastcgi \
+--http-uwsgi-temp-path=/data/apps/src/nginx-1.16.1/tmp/_uwsgi \
+--http-scgi-temp-path=/data/apps/src/nginx-1.16.1/tmp/_scgi
