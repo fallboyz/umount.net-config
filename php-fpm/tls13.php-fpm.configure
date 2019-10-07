@@ -1,0 +1,7 @@
+./configure --prefix=/data/apps/src/php-7.2.20 \
+--enable-fpm \
+--with-openssl \
+--with-zlib \
+--enable-mysqlnd \
+--with-config-file-path=/data/apps/ln/php/etc/ \
+--with-openssl=/usr/local/openssl-1.1.1c
