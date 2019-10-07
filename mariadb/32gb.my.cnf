@@ -1,0 +1,121 @@
+# test system ram 32GB and only db server
+
+[client]
+port    = 3306
+socket  = /data/apps/ln/mariadb/mysql.sock
+
+[mysql]
+no_auto_rehash
+
+[myisamchk]
+aria_pagecache_buffer_size = 64M
+read_buffer = 2M
+write_buffer = 2M
+
+[mysqlhotcopy]
+interactive-timeout
+
+[mysqldump]
+quick
+max_allowed_packet = 1024M
+
+[mysqld_safe]
+open_files_limit = 56000
+user = maria
+
+[mysqld]
+user = maria
+port = 3306
+extra_port = 13306
+extra_max_connections = 5
+bind-address = 0.0.0.0
+
+socket   = /data/apps/ln/mariadb/mysql.sock
+pid-file = /data/apps/ln/mariadb/mysqld.pid
+tmpdir   = /data/apps/ln/mariadb/tmp
+
+log_warnings = 2
+log-error    = /data/apps/ln/mariadb/logs/mysqld.log
+
+general_log = 1
+general_log_file = /data/apps/ln/mariadb/logs/mysqld-query.log
+
+slow_query_log      = 1
+long_query_time     = 3
+slow_query_log_file = /data/apps/ln/mariadb/logs/mysqld-slow.log
+
+# replication setting
+server-id        = 1
+log-bin          = mariadb-bin
+log-bin-index    = mariadb-bin.index
+expire_logs_days = 7
+max_binlog_size  = 1024M
+binlog_format    = row
+gtid_strict_mode = 1
+
+event_scheduler  = ON
+log-bin-trust-function-creators = 1
+
+max_allowed_packet      = 1024M
+default_storage_engine  = InnoDB
+character-set-server    = utf8
+
+skip-name-resolve
+back_log             = 3500
+max_connections      = 25000
+max_user_connections = 0
+thread_cache_size    = 64
+wait_timeout         = 120
+interactive_timeout  = 350
+
+thread_pool_size         = 8
+thread_handling          = pool-of-threads
+thread_pool_max_threads  = 4096
+thread_pool_idle_timeout = 120
+
+tmp_table_size             = 256M
+table_open_cache           = 100000
+myisam_sort_buffer_size    = 64M
+max_heap_table_size        = 256M
+
+innodb_data_home_dir      = /data/apps/ln/mariadb/data
+innodb_log_group_home_dir = /data/apps/ln/mariadb/data
+innodb_data_file_path     = ibdata1:2048M;ibdata2:2048M:autoextend
+
+# files
+innodb_file_per_table
+innodb_log_file_size      = 2G
+innodb_log_files_in_group = 2
+innodb_open_files         = 4000
+innodb_undo_tablespaces   = 4
+
+# buffers
+innodb_buffer_pool_dump_at_shutdown = 1
+innodb_buffer_pool_load_at_startup  = 1
+innodb_buffer_pool_size             = 18G
+innodb_buffer_pool_instances        = 18
+innodb_log_buffer_size              = 64M
+
+# tune
+innodb_doublewrite             = 1
+innodb_thread_concurrency      = 0
+innodb_flush_log_at_trx_commit = 0
+innodb_flush_method            = O_DIRECT_NO_FSYNC
+innodb_max_dirty_pages_pct     = 90
+innodb_max_dirty_pages_pct_lwm = 10
+innodb_lru_scan_depth          = 2048
+join_buffer_size               = 512K
+sort_buffer_size               = 512K
+innodb_use_native_aio          = 1
+innodb_stats_persistent        = 1
+innodb_adaptive_flushing       = 1
+innodb_flush_neighbors         = 0
+innodb_read_io_threads         = 16
+innodb_write_io_threads        = 16
+innodb_io_capacity             = 1500
+innodb_io_capacity_max         = 2500
+innodb_purge_threads           = 4
+innodb_adaptive_hash_index     = 0
+max_prepared_stmt_count        = 1000000
+innodb_monitor_enable = '%'
+performance_schema = ON
