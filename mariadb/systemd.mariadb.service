@@ -1,0 +1,25 @@
+[Unit]
+Description=MariaDB Database Server
+After=syslog.target
+After=network.target
+
+[Service]
+KillMode=process
+KillSignal=SIGTERM
+SendSIGKILL=no
+
+User=maria
+Group=maria
+
+LimitNOFILE=infinity
+LimitNPROC=4096
+LimitCORE=infinity
+PermissionsStartOnly=true
+PrivateTmp=true
+OOMScoreAdjust=-1000
+ExecStartPre=sync
+ExecStartPre=sysctl -q -w vm.drop_caches=3
+ExecStart=/data/apps/ln/mariadb/bin/mysqld --defaults-file=/data/apps/ln/mariadb/etc/my.cnf --plugin-dir=/data/apps/ln/mariadb/lib/plugin --pid-file=/data/apps/ln/mariadb/mysqld.pid
+Restart=always
+RestartSec=1
+TimeoutSec=300
