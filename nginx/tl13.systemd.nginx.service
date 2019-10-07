@@ -1,0 +1,17 @@
+[Unit]
+Description=The NGINX HTTP and reverse proxy server
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Environment=LD_LIBRARY_PATH=/usr/local/openssl-1.1.1c/lib/
+Type=forking
+LimitNOFILE=30000
+PIDFile=/data/apps/ln/nginx/nginx.pid
+ExecStartPre=/data/apps/ln/nginx/sbin/nginx -t
+ExecStart=/data/apps/ln/nginx/sbin/nginx
+ExecReload=/data/apps/ln/nginx/sbin/nginx -s reload
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
