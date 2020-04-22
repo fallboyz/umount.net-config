@@ -21,11 +21,11 @@ then
     USE_CURL=true
 fi
 
-ERROR_WRONG_PARAM="0.0009"
+ERROR_PARAM="0.0009"
 ERROR_DATA="0.0008"
 
 if [ ! $USE_CURL = true ]; then
-    STATS=$($WGET_BIN -q $STATUS_URL -O - 2> /dev/null)
+    STATS=$($WGET -q $STATUS_URL -O - 2> /dev/null)
 else
     STATS=$($CURL -S -s $STATUS_URL)
 fi
@@ -58,7 +58,7 @@ case $KEYNAME in
         echo "$STATS" | tail -1             | awk '{print $6}'
         ;;
     *)
-        echo $ERROR_WRONG_PARAM
+        echo $ERROR_PARAM
         exit 1
         ;;
 esac
